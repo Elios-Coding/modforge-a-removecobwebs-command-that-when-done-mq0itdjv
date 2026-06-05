@@ -24,9 +24,17 @@ public class ARemovecobwebsCommandThatWhenDoneMod implements ModInitializer {
             CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> {
                 try {
                     dispatcher.register(literal("removecobwebs")
-                        .requires(source -> source.hasPermission(2))
-                        .executes(ctx -> executeRemoveCobwebs(ctx.getSource()))
-                    );
+                            // Modern Yarn/Fabric uses hasPermissionLevel(int)
+                            .requires(source -> {
+                                try {
+                                    return source.hasPermission(2);
+                                } catch (Throwable t) {
+                                    // If mappings differ, fail closed (no permission) instead of crashing.
+                                    LOGGER.error("ModForge: permission check failed for /removecobwebs", t);
+                                    return false;
+                                }
+                            })
+                            .executes(ctx -> executeRemoveCobwebs(ctx.getSource())));
                 } catch (Throwable t) {
                     LOGGER.error("ModForge: failed to register /removecobwebs", t);
                 }
@@ -39,7 +47,7 @@ public class ARemovecobwebsCommandThatWhenDoneMod implements ModInitializer {
     private static int executeRemoveCobwebs(ServerCommandSource source) {
         try {
             final ServerPlayerEntity player = source.getPlayer();
-            final ServerWorld world = (ServerWorld) player.getEntityWorld();
+            final ServerWorld world = player.getServerWorld();
             final BlockPos center = player.getBlockPos();
 
             int removed = 0;
