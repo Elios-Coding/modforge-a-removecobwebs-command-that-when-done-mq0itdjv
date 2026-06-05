@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "a-removecobwebs-command-that-when-done-mq0itdjv",
+  "version": "${version}",
+  "name": "Remove Cobwebs Command That When Done",
+  "description": "Adds an operator command /removecobwebs that deletes cobweb blocks within a 50-block radius of the executing player.",
+  "authors": [
+    "Elio"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/a-removecobwebs-command-that-when-done-mq0itdjv/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.modforge.aremovecobwebscommandthatwhendone.ARemovecobwebsCommandThatWhenDoneMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
