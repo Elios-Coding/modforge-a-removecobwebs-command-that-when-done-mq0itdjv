@@ -24,7 +24,7 @@ public class ARemovecobwebsCommandThatWhenDoneMod implements ModInitializer {
             CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, env) -> {
                 try {
                     dispatcher.register(literal("removecobwebs")
-                        // Yarn/modern mappings: ServerCommandSource permission gate is hasPermissionLevel(int)
+                        // Modern Yarn/Fabric: permission check is hasPermissionLevel(int)
                         .requires(source -> source.hasPermission(2))
                         .executes(ctx -> executeRemoveCobwebs(ctx.getSource()))
                     );
